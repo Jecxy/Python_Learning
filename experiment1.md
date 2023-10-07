@@ -81,34 +81,23 @@ git pull
 
 ## 实验过程与结果
 
-请将实验过程中编写的代码和运行结果放在这里，注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
+![](/img/2023-10-07%20160100.png)
 
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
+python测试：
 ```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
+print("Hello Git World!")
+print("Hello everyone.")
+print("Oh no, I broke the project!")
+
 ```
 
-代码运行结果的文本可以直接粘贴在这里。
+显示效果如下：
 
-**注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
-
+``` 
+Hello Git World!
+Hello everyone.
+Oh no, I broke the project!
+```
 ## 实验考查
 
 请使用自己的语言回答下面的问题，这些问题将在实验检查时用于提问和答辩，并要求进行实际的操作。
