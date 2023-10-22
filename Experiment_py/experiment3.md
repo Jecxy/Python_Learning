@@ -254,7 +254,30 @@ def valid_braces(string):
 ```
 4:从随机三元组中恢复秘密字符串(Recover a secret string from random triplets)
 ```python
+def recoverSecret(triplets):
+    prev_letters = {}
 
+    for triplet in triplets:
+        for i in range(2):
+            if triplet[i] not in prev_letters:
+                prev_letters[triplet[i]] = set()
+            if triplet[i+1] not in prev_letters:
+                prev_letters[triplet[i+1]] = set()
+            prev_letters[triplet[i+1]].add(triplet[i])
+
+    result = []
+    while prev_letters:
+
+        current_letter = next(letter for letter, prevs in prev_letters.items() if len(prevs) == 0)
+        result.append(current_letter)
+        del prev_letters[current_letter]
+
+     
+        for letter, prevs in prev_letters.items():
+            if current_letter in prevs:
+                prevs.remove(current_letter)
+                
+    return ''.join(result[::])
 ```
 
 5去掉喷子的元音（Disemvowel Trolls）
@@ -269,32 +292,24 @@ def disemvowel(string_):
 ```
 
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)
-
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
+```mermaid
+flowchart TB
+    A(开始)-->B{number是否小于等于0}
+    B -->|是| C[while循环，i自加，i是否小于number]
+    B -->|否| D(返回0)
+    C -->|是| E{i小于NUMBER}
+    E -->|是| F{i是否为3的倍数}
+    F -->|否| C
+    E ------->|否| G(返回sum)
+    F -->|是| H[sum+1]
+    H -->I{是否是5的倍数}
+    I -->|否| C
+    I -->|是| J[sum+1]
+    J --> K{i是否是15的倍数}
+    K -->|是| L[sum—1]
+    K -->|否| C
+    L --> C
 ```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
-
-代码运行结果的文本可以直接粘贴在这里。
 
 **注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
 
@@ -303,11 +318,23 @@ def add_binary(a,b):
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. Python中的列表可以进行哪些操作？
+列表可以增删改查
+#
 2. 哪两种方法可以用来对Python的列表排序？这两种方法有和区别？
+方法1.用List的内建函数list.sort进行排序
+方法2.用序列类型函数sorted(list)进行排序
+区别：sorted(list)返回一个对象，可以用作表达式。原来的list不变，生成一个新的排好序的list对象。而list.sort() 不会返回对象，改变原有的list。
+#
 3. 如何将Python列表逆序打印？
-4. Python中的列表执行哪些操作时效率比较高？哪些操作效率比较差？是否有类似的数据结构可以用来替代列表？
+第一种方式 list.reverse()，在原列表中直接逆序，不返回对象。
+第二种方式 使用切片 [::-1]，不改变原列表，返回逆序的新列表。
+第三种方式 使用 reversed() 方法，返回一个迭代器，需要用list()转换为列表。
+#
+4.  Python中的列表执行哪些操作时效率比较高？哪些操作效率比较差？是否有类似的数据结构可以用来替代列表？
+列表的增删改查效率较高，排序效率比较低。
+可以用元组、集合、字典等数据结构代替列表。
+#
 5. 阅读《Fluent Python》Chapter 2. An Array of Sequence - Tuples Are Not Just Immutable Lists小节（p30-p35）。总结该小节的主要内容。
-
+该小节主要介绍了python中元组的性质和对元组的操作并给出了例子。
 ## 实验总结
-
-总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+在本次实验中我主要学习了python中列表的知识，学会了对列表的基本操作、了解了列表的性质和if函数的作用并且简单实践了列表和if函数的运用。
