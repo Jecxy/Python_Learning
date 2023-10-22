@@ -62,6 +62,7 @@ Python列表操作
         '1': 'Nice','2': 'Nice', ..., '31': 'Naughty'
     }
 }
+    
 ```
 
 你的函数应该返回 "Naughty!"或 "Nice!"，这取决于在某一年发生的总次数（以较大者为准）。如果两者相等，则返回 "Nice！"。
@@ -331,34 +332,54 @@ flowchart LR
 请将实验过程与结果放在这里，包括：
 
 - [第一部分 Python列表操作和if语句](#第一部分)
+1. 淘气还是乖孩子
+```python
+def naughty_or_nice(data):
+    data_str=str(data)
+    ni=data_str.count('Nice')
+    na=data_str.count('Naughty')
+    if ni>=na:
+        return 'Nice!'
+    else:
+        return 'Naughty'
+```
+
+2. 观察到的PIN
+```python
+from itertools import product
+def get_pins(observed):
+    key_dict = {
+        "1" : ["1", "2", "4"],
+        "2" : ["1", "2", "3", "5"],
+        "3" : ["2", "3", "6"],
+        "4" : ["1", "4", "5", "7"],
+        "5" : ["2", "4", "5", "6", "8"],
+        "6" : ["3", "5", "6", "9"],
+        "7" : ["4", "7", "8"],
+        "8" : ["5", "7", "8", "9", "0"],
+        "9" : ["6", "8", "9"],
+        "0" : ["8", "0"]
+        }
+    # 根据输入得到二维数组
+    nested_list =[  key_dict[ch]  for ch in observed ]
+    pin=(''.join(item) for item in product(*nested_list))
+    return pin
+```
+
+3. RNA到蛋白质序列的翻译
+```python
+```
+4. 莫尔斯码解码器
+```python
+
+```
+5. 填写订单
+```python
+
+```
 - [第二部分 Codewars Kata挑战](#第二部分)
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
-
-代码运行结果的文本可以直接粘贴在这里。
 
 **注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
 
