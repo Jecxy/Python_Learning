@@ -1,14 +1,12 @@
 # 实验四 Python字典和while循环
 
-班级： 21计科1
+班级： 21计科3
 
-学号： 202302200000
+学号： B20210302324
+姓名： 唐佳喜
 
-姓名： 张三
+Github地址：https://github.com/Jecxy/Python_Learning
 
-Github地址：<https://github.com/yourusername/python_course>
-
-CodeWars地址：<https://www.codewars.com/users/yourusername>
 
 ---
 
@@ -368,12 +366,74 @@ def get_pins(observed):
 
 3. RNA到蛋白质序列的翻译
 ```python
+def protein(rna):
+    # your code here
+    PROTEIN_DICT = {
+    # Phenylalanine
+    'UUC': 'F', 'UUU': 'F',
+    # Leucine
+    'UUA': 'L', 'UUG': 'L', 'CUU': 'L', 'CUC': 'L', 'CUA': 'L', 'CUG': 'L',
+    # Isoleucine
+    'AUU': 'I', 'AUC': 'I', 'AUA': 'I',
+    # Methionine
+    'AUG': 'M',
+    # Valine
+    'GUU': 'V', 'GUC': 'V', 'GUA': 'V', 'GUG': 'V',
+    # Serine
+    'UCU': 'S', 'UCC': 'S', 'UCA': 'S', 'UCG': 'S', 'AGU': 'S', 'AGC': 'S',
+    # Proline
+    'CCU': 'P', 'CCC': 'P', 'CCA': 'P', 'CCG': 'P',
+    # Threonine
+    'ACU': 'T', 'ACC': 'T', 'ACA': 'T', 'ACG': 'T',
+    # Alanine
+    'GCU': 'A', 'GCC': 'A', 'GCA': 'A', 'GCG': 'A',
+    # Tyrosine
+    'UAU': 'Y', 'UAC': 'Y',
+    # Histidine
+    'CAU': 'H', 'CAC': 'H',
+    # Glutamine
+    'CAA': 'Q', 'CAG': 'Q',
+    # Asparagine
+    'AAU': 'N', 'AAC': 'N',
+    # Lysine
+    'AAA': 'K', 'AAG': 'K',
+    # Aspartic Acid
+    'GAU': 'D', 'GAC': 'D',
+    # Glutamic Acid
+    'GAA': 'E', 'GAG': 'E',
+    # Cystine
+    'UGU': 'C', 'UGC': 'C',
+    # Tryptophan
+    'UGG': 'W',
+    # Arginine
+    'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R', 'AGA': 'R', 'AGG': 'R',
+    # Glycine
+    'GGU': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G',
+    # Stop codon
+    'UAA': 'Stop', 'UGA': 'Stop', 'UAG': 'Stop'
+    }
+    protein=''
+    for i in range(0,len(rna),3):
+        codon=rna[i:i+3]
+        if codon =='UAA' or codon =='UGA' or codon == 'UAG':
+            return protein
+        elif codon in PROTEIN_DICT:
+            protein+=PROTEIN_DICT[codon]
+    return protein
 ```
-4. 莫尔斯码解码器
+4. 填写订单
 ```python
-
+def fillable(stock, merch, n):
+    # Your code goes here.
+    if merch in stock.keys():
+        if n <= stock[merch]:
+            return True
+        else:
+            return False
+    else :
+        return False
 ```
-5. 填写订单
+5. 莫尔斯码解码器
 ```python
 
 ```
