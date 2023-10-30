@@ -330,6 +330,8 @@ flowchart LR
 请将实验过程与结果放在这里，包括：
 
 - [第一部分 Python列表操作和if语句](#第一部分)
+
+- [第二部分 Codewars Kata挑战](#第二部分)
 1. 淘气还是乖孩子
 ```python
 def naughty_or_nice(data):
@@ -437,9 +439,17 @@ def fillable(stock, merch, n):
 ```python
 
 ```
-- [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
 
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+```mermaid
+flowchart LR
+    A(开始)--->B{merch是否在stckmerch中};
+    B------>|是|C;
+    C{n是否小于库存量stockmerch}------>|是|D(return True);
+    B------>|否|E(return False);
+    C------>|否|E(return False);
+```
+   
 
 **注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
 
@@ -448,10 +458,16 @@ def fillable(stock, merch, n):
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. 字典的键和值有什么区别？
-2. 在读取和写入字典时，需要使用默认值可以使用什么方法？
-3. Python中的while循环和for循环有什么区别？
-4. 阅读[PEP 636 – Structural Pattern Matching: Tutorial](https://peps.python.org/pep-0636/), 总结Python 3.10中新出现的match语句的使用方法。
+字典的键是用于访问对应的值的，一个键对应一个值，但键的数据类型不能是列表，而值可以是所有的数据类型。
 
+2. 在读取和写入字典时，需要使用默认值可以使用什么方法？
+可以使用get()方法来获取默认值，具体为get('需要访问的键',默认值)的格式。
+
+3. Python中的while循环和for循环有什么区别？
+while循环是一个条件控制循环，在满足其布尔表达式时一直执行下去；for循环是一个迭代循环，用于遍历一个可迭代对象（如列表、元组、字符串等）中的每个元素并执行一段代码。
+
+4. 阅读[PEP 636 – Structural Pattern Matching: Tutorial](https://peps.python.org/pep-0636/), 总结Python 3.10中新出现的match语句的使用方法。
+match语句类似于switch语句，根据不同的模式匹配执行相应的代码块，match语句会按照从下至下的顺序匹配，一旦匹配成功就执行相应的代码块且只会执行匹配到的第一个模式对应的代码块。
 ## 实验总结
 
-总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+在这次实验中我学习了字典的创建、访问、删除、添加等基础操作并将其加以应用，学习了字典在python中的使用。
