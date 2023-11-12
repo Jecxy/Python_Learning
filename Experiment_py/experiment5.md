@@ -219,22 +219,123 @@ def is_pangram(s):
     return True
 ```
 4. 数独解决方案验证
-
+```python
+def validate_sudoku(board):
+    
+    # 利用集合进行比较 {1,2,3,4,5,6,7,8,9}
+    elements = set(range(1, 10))
+    
+    # row
+    for b in board:
+        if set(b) != elements: 
+            return False
+    
+    # column
+    for b in zip(*board):   # zip(*board) 可以将矩阵转置
+        if set(b) != elements: 
+            return False
+    
+    # magic squares
+    for i in range(3, 10, 3):
+        for j in range(3, 10, 3):
+            if elements != {(board[q][w]) 
+                            for w in range(j-3, j) 
+                            for q in range(i-3, i)}:
+                return False
+            
+    return True
+```
 5. 疯狂的彩色三角形
-
+```python
+def triangle(row):
+    # 最长的测试用例长度不会超过100000
+    # 找到小于100000的所有的3的幂加1，从大到小排序
+    # reduce 应该等于[3**9+1, 3**8+1, ... , 3**1+1,  3**0+1]
+    reduce=[3**i+1 for i in range(10) if 3**i<=100000][::-1]
+    
+    COLOR = {'GG':'G', 'BB':'B', 'RR':'R', 'BR':'G', 
+            'BG':'R', 'GB':'R', 'GR':'B', 'RG':'B', 'RB':'G'}
+    
+    # 从reduce里面最长的长度间隔，取出row里面的元素相加
+    for length in reduce:
+        while len(row)>=length:
+            # row=[row[i] if row[i]==row[i+length-1] else ({"R","G","B"}-{row[i],row[i+length-1]}).pop() for i in range(len(row)-length+1)]
+            row=[ COLOR[row[i] + row[i+length-1]] for i in range(len(row)-length+1)]
+    return row[0]
+```
 - [第二部分 使用Mermaid绘制程序流程图](#第二部分)
-
-
+- 
+```mermaid
+flowchart TD
+ A[Start] --> B[for i in integers] 
+ B --> C{i % 2 == 0} 
+ C --> |No| D["odd.append(i)"]
+ C --> |Yes| E["even.append(i)"] 
+ D --> F{"len(odd) == 1"} 
+ E --> F
+  F --> |No| G["return odd[0]"] 
+ F --> |Yes| H[" return even[0]"] 
+ H --> I[End] 
+ G --> I
+```
 
 ## 实验考查
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. 集合（set）类型有什么特点？它和列表（list）类型有什么区别？
+
+与列表（list）类型相比，集合类型有以下区别：
+唯一性：集合中的元素是唯一的，而列表中的元素可以重复。
+无序性：集合中的元素没有固定的顺序，而列表中的元素有顺序。
+可变性：集合是可变的，可以添加、删除和修改元素，而列表也是可变的。
+
 2. 集合（set）类型主要有那些操作？
+
+添加元素：可以使用 add() 方法向集合中添加元素。
+删除元素：可以使用 remove() 方法从集合中删除指定元素，或使用 pop() 方法随机删除一个元素。
+清空集合：可以使用 *****() 方法清空集合中的所有元素。
+判断元素是否在集合中：可以使用 in 关键字或者使用 contains() 方法判断元素是否在集合中。
+集合运算：可以使用交集（&）、并集（|）、差集（-）等运算操作两个集合。
+集合长度：可以使用 len() 方法获取集合中元素的个数。
+遍历集合：可以使用 for 循环遍历集合中的所有元素。
+
 3. 使用`*`操作符作用到列表上会产生什么效果？为什么不能使用`*`操作符作用到嵌套的列表上？使用简单的代码示例说明。
+
+在Python中，* 操作符可以用于解压缩可迭代对象，例如列表或元组。当 * 操作符作用于一个列表时，它会将列表中的元素解压缩并作为独立的参数传递给函数或构造新的列表。然而，当 * 操作符作用于嵌套的列表时，它只会解压一层嵌套，而不会递归地解压内部的列表。例如*[1, 2, 3]结果为1 2 3，而*[[1, 2], 3]结果为[1, 2] 3。
+
 4. 总结列表,集合，字典的解析（comprehension）的使用方法。使用简单的代码示例说明。
 
+##### 列表解析（List Comprehension）：
+列表解析提供了一种简洁的方法来创建新的列表。它的基本语法是在一个可迭代的对象上应用一个表达式，通常伴随着条件语句。
+
+1.创建一个包含平方数的列表
+  squared_numbers = [x**2 for x in range(1, 6)]
+  print(squared_numbers)  # 输出: [1, 4, 9, 16, 25]
+2.使用条件语句过滤列表中的元素
+  even_numbers = [x for x in range(10) if x % 2 == 0]
+  print(even_numbers)  # 输出: [0, 2, 4, 6, 8]
+
+##### 集合解析（Set Comprehension）：
+集合解析类似于列表解析，但是创建的是集合而不是列表。
+
+1.创建一个包含平方数的集合
+  squared_numbers_set = {x**2 for x in range(1, 6)}
+  print(squared_numbers_set)  # 输出: {1, 4, 9, 16, 25}
+2.使用条件语句过滤集合中的元素
+  even_numbers_set = {x for x in range(10) if x % 2 == 0}
+  print(even_numbers_set)  # 输出: {0, 2, 4, 6, 8}
+
+##### 字典解析（Dictionary Comprehension）：
+字典解析允许你以简洁的方式创建字典，你可以指定键值对以及可选的条件语句。
+
+1.创建一个包含数字及其平方的字典
+  squared_dict = {x: x**2 for x in range(1, 6)}
+  print(squared_dict)  # 输出: {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+
+2.使用条件语句过滤字典中的元素
+  even_squared_dict = {x: x**2 for x in range(10) if x % 2 == 0}
+  print(even_squared_dict)  # 输出: {0: 0, 2: 4, 4: 16, 6: 36, 8: 64}
 ## 实验总结
 
-总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+在本次实验中，我学会了Python的列表、集合数据类型之间的区别，也了解了列表的基本语句与操作，学习Python的*操作在列表上的作用，也熟悉了集合、列表、字典的使用。
