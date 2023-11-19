@@ -322,33 +322,91 @@ flowchart LR
 
 - [第一部分 Python函数](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
+第一题：编码聚会1
+```python
+def count_developers(lst):
+    return sum(x["language"] == "JavaScript" and x["continent"] == "Europe" for x in lst)
+
+count_developers(lst1)
+```
+
+第二题： 使用函数进行计算
+```python
+def zero(fun=None): return fun(0) if fun else 0
+def one(fun=None): return fun(1) if fun else 1
+def two(fun=None): return fun(2) if fun else 2
+def three(fun=None): return fun(3) if fun else 3
+def four(fun=None): return fun(4) if fun else 4
+def five(fun=None): return fun(5) if fun else 5
+def six(fun=None): return fun(6) if fun else 6
+def seven(fun=None): return fun(7) if fun else 7
+def eight(fun=None): return fun(8) if fun else 8
+def nine(fun=None): return fun(9) if fun else 9
+
+def plus(y): return lambda x:x+y
+def minus(y): return lambda x:x-y
+def times(y): return lambda x:x*y
+def divided_by(y): return lambda x:x//y
+```
+
+第三题： 缩短数值的过滤器(Number Shortening Filter)
+```python
+def shorten_number(suffixes, base):
+    #your code here
+    def fun(data):
+        try:
+            number = int(data)
+        except (TypeError, ValueError):
+            return str(data)
+        else:
+            i = 0       
+            while number//base > 0 and i < len(suffixes)-1:
+                number //= base
+                i += 1
+            return str(number) + suffixes[i]     
+    return fun
+```
+
+
+第四题： 编码聚会7
+```python
+def find_senior(lst): 
+    mage = max(a['age'] for a in lst)
+    return [a for a in lst if a['age']==mage]
+```
+
+第五题： Currying versus partial application
+```python
+from inspect import signature
+from functools import partial
+
+def curry_partial(main_func, *args):
+    
+    if not(callable(main_func)):
+        return main_func
+    
+    p = len(signature(main_func).parameters)
+    func = partial(main_func)
+    
+    for a in args:
+        if len(func.args) == p: break
+        func = partial(func, a)
+    
+    if len(func.args) < p:
+        return partial(curry_partial, main_func, *func.args)
+
+    return func()
+```
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)
 
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
+```mermaid
+flowchart TD 
+ A[Start] --> B[" for i in range(len(lst))"] 
+ B --> C{"lst[i]['continent'] == 'Europe' and lst[i]['language'] == 'JavaScript'"} 
+ C --> |Yes| D[ count += 1]
+ D --> E[return count] 
+ E --> F[End]
 ```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
-```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
-```
-
-代码运行结果的文本可以直接粘贴在这里。
 
 **注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
 
@@ -357,9 +415,36 @@ def add_binary(a,b):
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. 什么是函数式编程范式？
+是一种编程范型，它将电脑运算视为数学上的函数计算，并且避免使用程序状态以及易变对象。 函数编程语言最重要的基础是 λ演算 （lambda calculus）。 而且λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。
+
 2. 什么是lambda函数？请举例说明。
+lambda 函数是一种小型、匿名的、内联函数，它可以具有任意数量的参数，但只能有一个表达式。匿名函数不需要使用 def 关键字定义完整函数。lambda 函数通常用于编写简单的、单行的函数，通常在需要函数作为参数传递的情况下使用，例如在 map()、filter()、reduce() 等函数中。
+列如：
+```python
+x = lambda a : a + 10
+print(x(5))
+```
+结果为15
+
+```python
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)  # 输出: [1, 4, 9, 16, 25]
+```
+输出结果为：[1, 4, 9, 16, 25]
+
 3. 什么是高阶函数？常用的高阶函数有哪些？这些高阶函数如何工作？使用简单的代码示例说明。
+高阶函数（Higher-order Function）是指可以接受一个或多个函数作为参数，并且可以返回一个函数作为结果的函数。常见的高阶函数有：
+map()：对可迭代对象中的每个元素应用一个函数，返回一个新的可迭代对象。
+filter()：对可迭代对象中的每个元素应用一个布尔函数，返回一个新的可迭代对象，其中只包含使布尔函数返回True的元素。
+reduce()：对可迭代对象中的元素应用一个二元函数，返回一个单值结果。
+sorted()：对可迭代对象中的元素进行排序，可以指定排序规则。
+例如：
+```python
+lst = ['apple', 'banana', 'orange']
+result = map(lambda x: x.upper(), lst)
+print(list(result))  # 输出 ['APPLE', 'BANANA', 'ORANGE']
+```
 
 ## 实验总结
-
-总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+在本次实验中，我知道了形参实参的传递之间的关系，对函数有了进一步的学习，了解了lambda函数的语法与使用，也了解到了一些高阶函数，并且大致学习了这些高阶函数的用法。

@@ -197,9 +197,9 @@ flowchart LR
 ```python
 def spin_words(sentence):
     # Your code goes here
-    words=sentence.split();
+    words=sentence.split()
     spinning_words = [word[::-1] if len(word) >= 5 else word for word in words]
-    result = " ".join(spinning_words);
+    result = " ".join(spinning_words)
     return result
 ```
 2. 发现离群的数(Find The Parity Outlier)
