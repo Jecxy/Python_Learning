@@ -1,6 +1,8 @@
 import pygame
 from alien import Alien
 
+
+# 创建一个虚拟的ai_game实例，可以使用Mock等方式
 class MockSettings:
     alien_speed = 1
     fleet_direction = 1
@@ -22,7 +24,7 @@ def test_alien_update():
     alien = Alien(ai_game)
 
     alien.update()
-    assert alien.rect.x == 51  
+    assert alien.rect.x == 51  # 验证横向移动是否符合预期
 
 
 def test_alien_check_edges():
@@ -31,9 +33,10 @@ def test_alien_check_edges():
 
     screen_rect = alien.screen.get_rect()
     alien.rect.x = screen_rect.right - 1
-    assert alien.check_edges() == True  
+    assert alien.check_edges() == True  # 验证边缘检查是否符合预期
+
     alien.rect.x = 0
-    assert alien.check_edges() == True  
+    assert alien.check_edges() == True  # 验证边缘检查是否符合预期
 
     alien.rect.x = 10
-    assert alien.check_edges() == None
+    assert alien.check_edges() == None  # 验证边缘检查是否符合预期
